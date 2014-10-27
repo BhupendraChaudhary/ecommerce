@@ -1,5 +1,3 @@
 /tmp
-/public
 /log
-/config/database.yml
 /vendor/bundle

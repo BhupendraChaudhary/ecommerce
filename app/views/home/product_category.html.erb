@@ -22,7 +22,7 @@
 			<% if @products.present? %>
 			<% @products.each do |product| %>
 				<% main_image = product.product_images.where(main_image: true).first %>
-					<div class="col-md-5">
+					<div class="col-md-5" style="height:270;width:420">
 						<% if main_image.present? %>
 							<%= link_to product_description_product_path(product.id) do %>
             					<%= image_tag main_image.image, height: 200, width: 400 %>
@@ -33,8 +33,7 @@
 							
 						<% end %>
 						<p align="center"><label><%= link_to product.name, product_description_product_path(product.id) %></label></p>
-						<p align="center"><label><%= link_to product.price, product_description_product_path(product.id) %>
-						</label></p>
+						<p align="center"><label><%= link_to product.price, product_description_product_path(product.id) %></label></p>
 						<br />
 					</div>
 			<% end %>
