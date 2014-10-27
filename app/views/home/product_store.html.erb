@@ -1,0 +1,25 @@
+List of Products with Images:<br />
+<div class="pagination no-margin pull-right">
+	<%= paginate @products %>
+</div>
+<br/ >
+<div class="row">
+	<% @products.each do |product| %>
+		<div class="col-md-5" style="height:270px;width:420px">
+			<% main_image = product.product_images.where(main_image: true).first %>	
+				<% if main_image.present? %>
+					<%= link_to (image_tag main_image.image, height: 200, width: 400), product_description_product_path(product.id) %>
+				<% else %>
+					<br /><br /><br /><br />
+					<p style="text-align:center;"> <label> No image Available </label> </p>
+					<br /><br /><br />
+				<% end %>
+				<p align="center"><label><%= link_to product.name, product_description_product_path(product.id) %></label></p><br/>
+				<br /><br />
+		</div>
+	<% end %>
+</div>
+<br />
+<br />
+<br />
+<%= link_to "back", home_index_path %>

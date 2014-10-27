@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ecommerce</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+	    <%= render "layouts/header" %>
+	<div class="container" style="padding-top: 50px;">
+
+	    <p class="notice"><%= notice %></p>
+	    <p class="alert"><%= alert %></p>
+
+	    
+		<%= yield %>
+	</div>
+</body>
+</html>

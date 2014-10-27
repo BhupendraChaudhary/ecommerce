@@ -1,0 +1,16 @@
+<p><label>List of Products with Images:</label></p>
+    <div class="row">
+      <% @products.each do |product| %>
+        <% main_image = product.product_images.where(main_image: true).first %>
+          <div class="col-md-6">
+            <% if main_image.present? %>
+              <%= link_to (image_tag main_image.image, height: 200, width: 400), product_description_product_path(product.id) %>
+            <% else %>
+              &nbsp; &nbsp;
+              <label>No Image Available</label>
+              
+            <% end %>
+            <p align="center"><label><%= link_to product.name, product_description_product_path(product.id) %></label></p>
+          </div>
+      <% end %>
+    </div>

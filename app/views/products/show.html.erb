@@ -1,0 +1,36 @@
+Product details:<br />
+<div class="row">
+  <div class="col-md-6">
+    <div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+        <th>Name </th>
+        <th>Price</th>
+        <th>Available Quantity</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><%= @product.name %><br /></td>
+        <td><%= @product.price %><br /></td>
+        <td><%= @product.available_quantity %></td>
+        <td><%= truncate(@product.description, :length => 10, seperator: " ") %></td>
+      </tr>
+    </table>
+    </div>
+  </div>
+</div>
+
+<br />
+<h3>Images:</h3>
+<% if @product.product_images.present? %>
+  <%= form_tag(create_main_image_product_path(@product.id), method: :post) do %>
+    <% @product.product_images.each do |product_image| %>
+      <%= image_tag product_image.image, height: 200, width: 400 %>
+      <%= radio_button_tag "main_image", product_image.id, product_image.main_image %> Main Image
+    <% end %>
+    <br /><br />
+    <%= submit_tag "Submit" %>
+    <br /><br /><br /> 
+  <% end %>
+<% end %>
+<%#= link_to "back", products_path %>

@@ -1,0 +1,31 @@
+Products: <br />
+<div class="table-responsive">
+<table class="table table-hover" >
+	<% if @products.present? %>
+		<tr class="row">
+			<th class="col-md-1">Name</th>
+			<th class="col-md-1">Price</th>
+			<th class="col-md-1">Availabe Quantity</th>
+			<th class="col-md-1">Description</th>
+			<th class="col-md-2">Show Product</th>
+			<th class="col-md-2">Update Product</th>
+			<th class="col-md-2">Delete Product</th>
+		</tr>
+		<%  @products.each do |product| %>
+			<tr class="row">
+				<td class="col-md-1"> <%= product.name %> </td>
+				<td class="col-md-1"> <%= product.price %> </td>
+				<td class="col-md-1"><%= product.available_quantity %></td>
+				<td class="col-md-1"> <%= truncate(product.description, :length => 10, seperator: " ") %> </td>
+				<td class="col-md-2"><%= link_to "Show", product_path(product), class: "btn btn-primary" %></td>
+				<td class="col-md-2"><%= link_to "Edit", edit_product_path(product), class: "btn btn-primary" %></td>
+				<td class="col-md-2"><%= link_to "Delete", product_path(product), method: :delete, data:{confirm: "Are u sure?"}, class: "btn btn-danger" %></td>
+			</tr>
+		<% end %>
+	<% end %>
+	<tr class="row">
+		<td class="col-md-3" colspan="7"><%= link_to "Create New Product", new_product_path, class: "btn btn-primary" %></td>
+	</tr>
+</table>
+</div>	
+<%= link_to "home", home_index_path %>

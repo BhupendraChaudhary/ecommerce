@@ -1,0 +1,48 @@
+<div class="row">
+  <%= render 'form' %>
+
+  <div class="col-md-9">
+    <div class="row">
+      <div class="col-md-4">
+       
+      <%= form_tag(product_category_home_index_path, method: :get, id: "sort_page") do %>
+      Sort By :
+        <%= select_tag :sort, options_for_select([['Date', "created_at"],['Price', "price"]],params[:sort]), 
+                                                    onchange: "this.form.submit();", :prompt => 'Select Sort' %>
+      <% end %>
+      </div>
+      <div class="col-md-8">
+      <ul class="pagination no-margin pull-right">
+        <%= paginate @products %>
+      </ul>
+      </div>
+    </div>
+    <div class="row">
+      <% @products.each do |product| %>
+        <% main_image = product.product_images.where(main_image: true).first %>
+          <div class="col-md-5" style="height:270px;width:420px">
+            <% if main_image.present? %>
+              <%= link_to product_description_product_path(product.id) do %>
+                <%= image_tag main_image.image, height: 200, width: 400 %>
+              <% end %>
+            <% else %>
+              <br /><br /><br />
+              <p align="center"><label>No Image Available</label></p>
+              <br /><br /><br /><br />
+            <% end %>
+            <p align="center"><label><%= link_to product.name, product_description_product_path(product.id) %></label></p>
+          </div>
+      <% end %>
+    </div>
+
+    <br /><br /><br />
+    <div>
+      <ul class="pagination no-margin pull-right">
+          <%= paginate @products %>
+      </ul>
+    </div>
+      <%= link_to "Back", home_index_path, class: "btn btn-primary" %>
+    </div>
+    <p>
+  </p>
+</div>

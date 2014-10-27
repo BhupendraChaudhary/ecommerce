@@ -1,0 +1,56 @@
+<div class="row">
+	<div class="col-md-3">
+		<div style ="width: 200px; height:550px; scrollbar-base-color:#ffeaff; border:1px ; overflow-y:scroll">
+            
+
+		<p><label><b>Price</b></label></p>
+		<p><%= radio_button_tag :filter, "<10000" %>&lt;10000</p>
+		<p><%= radio_button_tag :filter, "10000-20000" %>10000-20000</p>
+		<p><%= radio_button_tag :filter, "20000-40000" %>20000-40000</p>
+		<p><%= radio_button_tag :filter, "40000-80000" %>40000-80000</p>
+		<p><%= radio_button_tag :filter, "80000-160000" %>80000-160000</p>
+		<p><%= radio_button_tag :filter, ">160000" %>&gt;160000</p>
+		<br/ ><br />
+		<p><label><b>Category</b></label></p>
+
+		
+			<% @categories.each do |category| %>
+		<%= form_tag(product_category_home_path(category.id), method: :get, id: "category_form") do %>
+				<%= hidden_field_tag :category_id, category.id %>
+				<p><%= check_box_tag "categories[]", category.id, false , onclick: "this.form.submit();" %><%= category.name %></p>
+			<% end %>
+		<% end %>
+		<br/ ><br />
+		
+		<p><label><b>Brand</b></label></p>
+		<% @brands.each do |brand| %>
+			<%= form_tag(product_brand_home_path(brand.id), method: :get ) do %>
+				<p><%= check_box_tag "brands[]", brand.id, false , onclick: "this.form.submit();" %><%= brand.name %> </p>
+			<% end %>
+		<% end %>
+
+		</div> 
+	</div>
+	<div class="col-md-9">
+		List of Products with Images:
+		<div class="row">
+      		<% @products.each do |product| %>
+      	    <% main_image = product.product_images.where(main_image: true).first %>
+          	  <div class="col-md-6">
+        	    <% if main_image.present? %>
+          		    <%= link_to (image_tag main_image.image, height: 200, width: 400), product_description_product_path(product.id) %>
+          	    <% else %>
+             		 &nbsp; &nbsp;
+                <label>No Image Available</label>
+              
+           	    <% end %>
+          	    <p align="center"><label><%= link_to product.name, product_description_product_path(product.id) %></label></p>
+         	  </div>
+     	    <% end %>
+  	    </div>
+		<br />
+		<br />
+		<br />
+		<%= link_to "back", home_index_path %>
+	</div>
+</div>

@@ -1,0 +1,64 @@
+<%= form_for(@product, :html => {:multipart => true}) do |product| %>
+	<% if @product.errors.present? %>
+		<ul>
+			<% @product.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="table-responsive">
+				<table class="table table-hover">
+				<tr class="row">
+					<td class="col-md-6"><%= product.label :name %></td>
+					<td class="col-md-6"><%= product.text_field :name, placeholder: "Enter product name" %></td>
+				</tr>
+				<tr class="row">
+					<td class="col-md-6"><%= product.label :price %></td>
+					<td class="col-md-6"><%= product.number_field :price, placeholder: "Enter product price" %></td>
+				</tr>
+				<tr class="row">
+					<td class="col-md-6"><%= label_tag :Add_Quantity %></td>
+					<td class="col-md-6"><%= product.number_field :quantity, placeholder: "Enter product quantity" %></td>
+				</tr>
+				<tr class="row">
+					<td class="col-md-6"><%= product.label :description %></td>
+					<td class="col-md-6"><%= product.text_area :description, placeholder: "Enter product description" %></td>
+				</tr>
+				<tr class="row">
+					<td class="col-md-6"><label>Select Category</label></td>
+					<td class="col-md-6">
+						<%= product.select :category_id, @categories.collect {|c| [ c.name, c.id ] }, {include_blank: true} %>
+					</td>
+				</tr>
+				<tr class="row">
+					<td class="col-md-6"><label>Select Brand</label></td>
+					<td class="col-md-6">
+						<%= product.select :brand_id, @brands.collect{|b| [ b.name, b.id ]}, {include_blank: "Select a brand"} %>
+					</td>
+				</tr>
+
+				<% if @product.product_images.present? %>
+					<% @product.product_images.each do |product_image| %>
+						<tr class="row">
+							<td class="col-md-6"> <%= link_to "delete image", destroy_image_product_path(product_image.id), method: :delete, data: {confirm: "Are U sure?"} %></td>
+							<td class="col-md-6"> <%= image_tag product_image.image, height: 100, width:200 %> </td>
+						</tr>
+					<% end %>
+				<% end %>
+				
+				<tr class="row">
+					<td class="col-md-6"> <label>Image</label></td>
+					<td class="col-md-6">
+						<%= file_field_tag "image[]", multiple: true %>
+					</td>
+				</tr>
+				<tr class="row">
+					<td colspan="2" class="col-md-12"><%= product.submit "Submit", class: "btn btn-primary" %></td>
+				</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+<% end %>

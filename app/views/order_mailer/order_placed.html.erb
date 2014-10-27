@@ -1,0 +1,44 @@
+<h3>Congratulation! Your Order is successfully Completed.</h3><br />
+<h4>Order Details:</h4>
+<br />
+<div class="row">
+	<div class="col-md-5">
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<tr>
+					<th>Product Name:</th><td> <%= @order.product_name %></td>
+				</tr>
+				<tr>
+					<th>Product Price: </th><td> <%= @order.product_price %></td>
+				</tr>
+				<tr>
+					<th>Product Quantity:</th><td> <%= @order.product_quantity %></td>
+				</tr>
+				<tr>
+					<th>Total Amount</th><td><%= @order.total_amount %></td>
+				</tr>
+				<tr>
+					<th>E-mail: </th> <td> <%= @order.email %></td>
+				</tr>
+				<tr>
+					<th>First Name: </th> <td> <%= @order.first_name %></td>
+				</tr>
+				<tr>
+					<th>Last Name: </th> <td> <%= @order.last_name %></td>
+				</tr>
+				<tr>
+					<th>Street: </th> <td> <%= @order.street %></td>
+				</tr>
+				<tr>
+					<th>City: </th><td> <%= @order.city %></td>
+				</tr>
+				<tr>
+					<th>Country: </th><td> <%= @order.country %></td>
+				</tr>
+				<tr>
+					<th>Pin Code: </th><td> <%= @order.zip %></td>
+				</tr>
+			</table>			
+		</div>
+	</div>
+</div>

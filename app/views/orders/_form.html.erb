@@ -1,0 +1,45 @@
+<br /><br >
+<%= form_for(@order, html: {role: "form"}) do |order| %>
+	<% if @order.errors.present? %>
+		<ul>
+			<% @order.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+	<%= order.hidden_field :product_quantity, value: @quantity %>
+	<%= order.hidden_field :total_amount, value: @total %>
+	<%= order.hidden_field :product_id, value: @product.id %>
+	<%= order.hidden_field :user_id, value: @product.user.id %>
+	<div class="form-group">
+	<%= order.label :email %>
+	<%= order.text_field :email, placeholder: "Enter E-Mail"  %>
+	</div>
+	<div class="form-group">	
+	<%= order.label :first_name %>
+	<%= order.text_field :first_name, placeholder: "first_name" %>
+	</div>
+	<div class="form-group">
+	<%= order.label :last_name %>
+	<%= order.text_field :last_name, placeholder: "last_name" %>
+	</div>
+	<div class="form-group">
+	<%= order.label :street %>
+	<%= order.text_field :street, placeholder: "street" %>
+	</div>
+	<div class="form-group">
+	<%= order.label :city %>
+	<%= order.select :city, ['Delhi', 'Mumbai', 'Pune', 'Newyork', 'Tokyo', 'London'] %>
+	</div>
+	<div class="form-group">
+	<%= order.label :country %>
+	<%= order.select :country, ['India', 'America', 'Japan', 'England'] %>
+	</div>
+	<div class="form-group">
+	<%= label_tag "Pin Code" %>
+	<%= order.text_field :zip, placeholder: "Pin Code" %>
+	</div>
+	<%= order.hidden_field :product_name, value: @product.name %>
+	<%= order.hidden_field :product_price, value: @product.price %>
+ 	<%= order.submit "Placed Order", class: "btn btn-primary" %>
+<% end %>

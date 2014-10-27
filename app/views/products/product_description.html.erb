@@ -1,0 +1,62 @@
+Product Details:<br />
+<div class="row">
+	<div class="col-md-4">
+		<div class="table-responsive">
+			<table class="table">
+				<tr class="row">
+					<td class="col-md-3">Name:</td> <td class="col-md-9"> <%= @product.name %></td>
+				</tr>
+				<tr class="row">
+					<td class="col-md-3"> Price: </td> <td class="col-md-9"> <%= @product.price %></td>
+				</tr>
+				<tr class="row">
+					<td class="col-md-3"> Description: </td> <td class="col-md-9"> <%= truncate(@product.description, :length => 10, seperator: " ") %>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+<% if @product.product_images.present? %>
+	<% @product.product_images.each do |img| %>
+		<%= link_to(img.image.url, class: "fancybox", data: {fancybox_group: "gallery"}) do %>
+            <%= image_tag img.image.thumb, class: "img-thumbnail" %>
+        <% end %>
+	<% end %>
+<% end %>
+<br />
+<br />
+<label>Seller:&nbsp;&nbsp;</label><%= @product.user.email %><br />
+<label>Available Quantity:&nbsp;&nbsp;</label><%= @product.available_quantity %>
+<%= form_tag(new_order_path, method: :get, id: "order-form") do %>
+	<%= hidden_field_tag :product_id, @product.id %>
+	<%= label_tag "Quantity" %>
+	<%= number_field_tag :quantity, "", placeholder: "Enter quantity" %>
+	<%= submit_tag :Buy, class: "btn btn-primary" %>
+<% end %>
+
+<%= link_to "home", home_index_path, class: "btn btn-primary" %>
+<%= link_to "back", product_store_home_index_path, class: "btn btn-primary" %>
+
+<script>
+	$(function(){
+		$('#order-form').submit(function (e) { 
+			if ($("#quantity").val() == '') { 
+				$("#quantity").css({ 'border': 'solid 1px red', 'color': 'red' }); 
+				e.preventDefault();
+			}
+			else {
+				if($.isNumeric($("#quantity").val())){
+					if ($("#quantity").val() >= <%= @product.available_quantity %> ) {
+						alert("Your Quantity value is greater then Available Quantity")
+						return false;
+					}
+				}
+			}
+
+		});
+		$("#quantity").focus(function () { 
+			$("#quantity").css({ 'border': 'solid 1px grey', 'color': 'grey' }); 
+		});
+	});
+</script>
